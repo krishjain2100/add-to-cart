@@ -39,7 +39,6 @@
     font-size: 24px;
     font-weight: bold;
     color: rgb(33, 27, 80);
-    padding-bottom: 16px;
     position: sticky;  /*for scroll*/
     top: 0;
     background: rgb(245, 245, 245);
@@ -47,13 +46,26 @@
     padding-top: 8px;
 }
 
+.total {
+    font-size: 20px;
+    font-weight: bold;
+    color: rgb(55, 36, 200);
+    padding-bottom: 16px;
+    position: sticky;  /*for scroll*/
+    top: 0;
+    background: rgb(245, 245, 245);
+    z-index: 1;
+}
+
+.total .price {
+    margin-left: 5px;
+}
+
 .items {
     display: flex;
     flex-direction: column;
     gap: 16px;
 }
-
-
 
 .item-tile {
     display: flex;
