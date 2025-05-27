@@ -6,9 +6,7 @@ const badge = document.querySelector('.number');
 const price = document.querySelector('.price');
 const clearButton = document.querySelector('.clear');
 
-cartButton.addEventListener('click', () => {
-    shoppingTab.classList.toggle('active');
-});
+cartButton.addEventListener('click', () => shoppingTab.classList.toggle('active'));
 
 clearButton.addEventListener('click', () => {
     for (const name in cart) {
@@ -21,9 +19,7 @@ clearButton.addEventListener('click', () => {
 
 
 function addToCart(name, price, image) {
-    if (cart[name]) {
-        updateQuantity(name, cart[name].qty + 1);
-    }
+    if (cart[name]) updateQuantity(name, cart[name].qty + 1);
     else {
         const itemElem = createItemTile(name, price, image);
         itemsContainer.appendChild(itemElem);
@@ -49,12 +45,9 @@ function createItemTile(name, price, image) {
         <div class="quantity">1</div>
         <div class="right-arrow">▶</div>
       </div>
-    </div>
-  `;
-    tile.querySelector('.left-arrow')
-        .addEventListener('click', () => changeBy(name, -1));
-    tile.querySelector('.right-arrow')
-        .addEventListener('click', () => changeBy(name, 1));
+    </div>`
+    tile.querySelector('.left-arrow').addEventListener('click', () => changeBy(name, -1));
+    tile.querySelector('.right-arrow').addEventListener('click', () => changeBy(name, 1));
     return tile;
 }
 
@@ -65,18 +58,14 @@ function changeBy(name, change) {
         itemsContainer.removeChild(entry.element);
         delete cart[name];
     }
-    else {
-        updateQuantity(name, newQty);
-    }
+    else updateQuantity(name, newQty);
     refreshNumbers();
 }
-
 
 function updateQuantity(name, qty) {
     cart[name].qty = qty;
     cart[name].element.querySelector('.quantity').innerText = qty;
 }
-
 
 function refreshNumbers() {
     let total = 0;
@@ -90,7 +79,6 @@ function refreshNumbers() {
 
     localStorage.setItem('cart', JSON.stringify(cart));
 }
-
 
 async function loadProducts() {
     const res = await fetch('https://dummyjson.com/products');
@@ -113,18 +101,12 @@ async function loadProducts() {
         `;
         contentDiv.appendChild(card);
     });
+
     document.querySelectorAll('.add-to-cart').forEach((btn) => {
         btn.addEventListener('click', () => {
-            const card = btn.closest('.product-card');
-            const name = card.dataset.name;
-            const price = card.dataset.price;
-            const image = card.dataset.image;
+            const { name, price, image } = card.dataset;
             addToCart(name, price, image);
-        });
-        btn.addEventListener('click', () => {
-            if (!shoppingTab.classList.contains('active')) {
-                shoppingTab.classList.add('active');
-            }
+            shoppingTab.classList.add('active');
         });
     });
 }
