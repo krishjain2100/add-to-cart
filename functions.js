@@ -10,17 +10,6 @@ cartButton.addEventListener('click', () => {
 });
 
 
-document.querySelectorAll('.add-to-cart').forEach((btn) => {
-    btn.addEventListener('click', () => {
-        const card = btn.closest('.product-card'); //nearest parent with said class
-        const name = card.dataset.name;
-        const price = card.dataset.price;
-        const image = card.dataset.image;
-        addToCart(name, price, image);
-    });
-});
-
-
 function addToCart(name, price, image) {
     if (cart[name]) {
         updateQuantity(name, cart[name].qty + 1);
