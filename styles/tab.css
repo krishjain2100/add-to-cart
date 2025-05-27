@@ -39,7 +39,8 @@
     font-size: 24px;
     font-weight: bold;
     color: rgb(33, 27, 80);
-    position: sticky;  /*for scroll*/
+    position: sticky;
+    /*for scroll*/
     top: 0;
     background: rgb(245, 245, 245);
     z-index: 1;
@@ -47,19 +48,42 @@
 }
 
 .total {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
     font-size: 20px;
     font-weight: bold;
     color: rgb(55, 36, 200);
     padding-bottom: 16px;
-    position: sticky;  /*for scroll*/
+    position: sticky;
+    /*for scroll*/
     top: 0;
     background: rgb(245, 245, 245);
     z-index: 1;
 }
 
-.total .price {
-    margin-left: 5px;
+.label-price {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
+
+.total .clear {
+    padding: 6px 12px;
+    font-size: 14px;
+    background-color: rgb(231, 76, 60);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.total .clear:hover {
+    background-color: rgb(192, 57, 43);
+}
+
 
 .items {
     display: flex;

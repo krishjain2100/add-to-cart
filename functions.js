@@ -4,10 +4,20 @@ const shoppingTab = document.querySelector('.shopping-tab');
 const itemsContainer = document.querySelector('.items');
 const badge = document.querySelector('.number');
 const price = document.querySelector('.price');
+const clearButton = document.querySelector('.clear');
 
 cartButton.addEventListener('click', () => {
     shoppingTab.classList.toggle('active');
 });
+
+clearButton.addEventListener('click', () => {
+    for (const name in cart) {
+        itemsContainer.removeChild(cart[name].element);
+        delete cart[name];
+    }
+    localStorage.removeItem('cart');
+    refreshNumbers();
+})
 
 
 function addToCart(name, price, image) {
@@ -77,6 +87,8 @@ function refreshNumbers() {
     }
     badge.innerText = total;
     price.innerText = "$" + Price.toFixed(2);
+
+    localStorage.setItem('cart', JSON.stringify(cart));
 }
 
 
@@ -109,6 +121,31 @@ async function loadProducts() {
             const image = card.dataset.image;
             addToCart(name, price, image);
         });
+        btn.addEventListener('click', () => {
+            if (!shoppingTab.classList.contains('active')) {
+                shoppingTab.classList.add('active');
+            }
+        });
     });
 }
 loadProducts();
+
+const loaded = localStorage.getItem('cart');
+
+if (loaded) {
+    const loadedCart = JSON.parse(loaded);
+    for (const name in loadedCart) {
+        const item = loadedCart[name];
+        const itemElem = createItemTile(name, item.price, item.image);
+        itemsContainer.appendChild(itemElem);
+        cart[name] = {
+            price: item.price,
+            qty: item.qty,
+            image: item.image,
+            element: itemElem
+        };
+        updateQuantity(name, item.qty);
+    }
+    refreshNumbers();
+}
+
