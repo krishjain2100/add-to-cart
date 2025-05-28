@@ -97,17 +97,19 @@ async function loadProducts() {
             </div>
             <div class="product-name">${product.title}</div>
             <div class="product-price">$${product.price}</div>
-            <div><button class="add-to-cart">Add to Cart</button></div>
-        `;
-        contentDiv.appendChild(card);
-    });
+            <div><button class="add-to-cart">Add to Cart</button></div>`
 
-    document.querySelectorAll('.add-to-cart').forEach((btn) => {
+        const btn = card.querySelector('.add-to-cart');
         btn.addEventListener('click', () => {
             const { name, price, image } = card.dataset;
             addToCart(name, price, image);
             shoppingTab.classList.add('active');
         });
+        contentDiv.appendChild(card);
+    });
+
+    document.querySelectorAll('.add-to-cart').forEach((btn) => {
+
     });
 }
 loadProducts();
